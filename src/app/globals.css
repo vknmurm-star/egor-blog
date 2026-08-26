@@ -10,6 +10,9 @@
   --rust: #b5562f;
   --rust-deep: #8a3f22;
   --rust-dark: #6b2f18;
+  --indigo: #4a3b6b;
+  --indigo-deep: #3d2f5c;
+  --indigo-dark: #2a2140;
   --gold: #c9a24b;
   --line: #e6d9c4;
 }
@@ -24,6 +27,9 @@
   --color-rust: var(--rust);
   --color-rust-deep: var(--rust-deep);
   --color-rust-dark: var(--rust-dark);
+  --color-indigo: var(--indigo);
+  --color-indigo-deep: var(--indigo-deep);
+  --color-indigo-dark: var(--indigo-dark);
   --color-gold: var(--gold);
   --color-line: var(--line);
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;

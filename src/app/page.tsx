@@ -24,13 +24,13 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--rust) 0%, var(--rust-deep) 55%, var(--rust-dark) 100%)",
+              "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--indigo) 0%, var(--indigo-deep) 55%, var(--indigo-dark) 100%)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-rust-dark/90 via-rust-dark/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-dark/90 via-indigo-dark/45 to-transparent" />
         <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-10">
           <p
-            className="flex items-center gap-2 text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
+            className="inline-flex items-center gap-2 text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
             style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
           >
             <Feather className="w-4 h-4" />
