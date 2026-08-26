@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #faf3e8;
+  --paper-raised: #fffaf1;
+  --ink: #2e2620;
+  --ink-soft: #4a3f35;
+  --text: #3a322a;
+  --text-muted: #8a7a68;
+  --rust: #b5562f;
+  --rust-deep: #8a3f22;
+  --gold: #c9a24b;
+  --line: #e6d9c4;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-rust: var(--rust);
+  --color-rust-deep: var(--rust-deep);
+  --color-gold: var(--gold);
+  --color-line: var(--line);
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-poem: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-poem {
+  font-family: var(--font-poem);
+}
+
+.poem-text {
+  white-space: pre-line;
+  line-height: 1.9;
+}
