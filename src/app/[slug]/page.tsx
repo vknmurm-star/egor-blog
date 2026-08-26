@@ -45,12 +45,14 @@ export default async function PostPage({
   return (
     <article className="mx-auto max-w-2xl px-4 py-14">
       {post.cover && (
-        <div className="mb-8 aspect-video w-full overflow-hidden rounded bg-paper-raised border border-line">
-          <CoverImage
-            src={post.cover}
-            alt={post.title}
-            className="w-full h-full object-cover"
-          />
+        <div className="mb-8 p-2 border-2 border-gold bg-paper rounded-sm">
+          <div className="aspect-video w-full overflow-hidden bg-paper-raised">
+            <CoverImage
+              src={post.cover}
+              alt={post.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       )}
       <Link

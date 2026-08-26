@@ -65,13 +65,15 @@ export default function Home() {
               {post.cover && (
                 <Link
                   href={`/${post.slug}`}
-                  className="shrink-0 block w-full sm:w-32 aspect-video sm:aspect-square rounded overflow-hidden bg-paper-raised border border-line"
+                  className="shrink-0 block w-fit p-1.5 border-2 border-gold bg-paper rounded-sm"
                 >
-                  <CoverImage
-                    src={post.cover}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="w-24 h-24 overflow-hidden bg-paper-raised">
+                    <CoverImage
+                      src={post.cover}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </Link>
               )}
               <div className="min-w-0">
