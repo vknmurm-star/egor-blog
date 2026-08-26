@@ -65,7 +65,7 @@ export default function Home() {
               {post.cover && (
                 <Link
                   href={`/${post.slug}`}
-                  className="shrink-0 block w-fit p-1.5 border-2 border-gold bg-paper rounded-sm"
+                  className="shrink-0 self-start block w-fit p-1.5 border-2 border-gold bg-line rounded-sm"
                 >
                   <div className="w-24 h-24 overflow-hidden bg-paper-raised">
                     <CoverImage
