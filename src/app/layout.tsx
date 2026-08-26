@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
+import SiteHeader from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -37,16 +37,7 @@ export default function RootLayout({
         `}</style>
       </head>
       <body className="min-h-full flex flex-col bg-paper text-text antialiased">
-        <header className="border-b border-line">
-          <div className="mx-auto max-w-2xl px-4 py-6 flex items-baseline justify-between">
-            <Link href="/" className="flex items-baseline gap-3">
-              <span className="font-display text-2xl text-ink">
-                Егор Андреев
-              </span>
-              <span className="text-sm text-text-muted">стихи и песни</span>
-            </Link>
-          </div>
-        </header>
+        <SiteHeader />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-line mt-16">
           <div className="mx-auto max-w-2xl px-4 py-8 text-sm text-text-muted text-center">

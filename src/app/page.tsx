@@ -19,7 +19,7 @@ export default function Home() {
     <>
       {/* Hero — фон готов принять реальное фото (см. /images/hero-placeholder.jpg),
           пока используется CSS-градиент из токенов темы */}
-      <section className="relative h-[23vh] min-h-[160px] w-full overflow-hidden">
+      <section className="relative h-[19vh] min-h-[130px] w-full overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -27,8 +27,8 @@ export default function Home() {
               "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--indigo) 0%, var(--indigo-deep) 55%, var(--indigo-dark) 100%)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-indigo-dark/90 via-indigo-dark/45 to-transparent" />
-        <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-5">
+        <div className="absolute inset-0 bg-indigo-dark/30" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-4 py-3">
           <p
             className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-paper/90 text-xs tracking-[0.2em] uppercase mb-2"
             style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
