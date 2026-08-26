@@ -30,21 +30,21 @@ export default function Home() {
         <div className="absolute inset-0 bg-indigo-dark/30" />
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4 py-3">
           <p
-            className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-paper/90 text-xs tracking-[0.2em] uppercase mb-2"
-            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
+            className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-black/35 border border-white/15 backdrop-blur-sm text-white text-xs tracking-[0.2em] uppercase mb-2"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
           >
             <Feather className="w-3.5 h-3.5" />
             Записная книжка поэта
           </p>
           <h1
             className="font-display text-2xl sm:text-3xl text-paper"
-            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
+            style={{ textShadow: "0 2px 14px rgba(0,0,0,0.6)" }}
           >
             Егор Андреев
           </h1>
           <p
-            className="text-paper/95 mt-1 text-sm"
-            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.45)" }}
+            className="text-paper mt-1 text-sm"
+            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.55)" }}
           >
             стихи и песни
           </p>
