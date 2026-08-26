@@ -19,7 +19,7 @@ export default function Home() {
     <>
       {/* Hero — фон готов принять реальное фото (см. /images/hero-placeholder.jpg),
           пока используется CSS-градиент из токенов темы */}
-      <section className="relative h-[46vh] min-h-[320px] w-full overflow-hidden">
+      <section className="relative h-[23vh] min-h-[160px] w-full overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -28,22 +28,22 @@ export default function Home() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-indigo-dark/90 via-indigo-dark/45 to-transparent" />
-        <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-10">
+        <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-5">
           <p
-            className="inline-flex items-center gap-2 w-fit mx-auto px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
+            className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-paper/90 text-xs tracking-[0.2em] uppercase mb-2"
             style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
           >
-            <Feather className="w-4 h-4" />
+            <Feather className="w-3.5 h-3.5" />
             Записная книжка поэта
           </p>
           <h1
-            className="font-display text-4xl sm:text-5xl text-paper"
+            className="font-display text-2xl sm:text-3xl text-paper"
             style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
           >
             Егор Андреев
           </h1>
           <p
-            className="text-paper/95 mt-2"
+            className="text-paper/95 mt-1 text-sm"
             style={{ textShadow: "0 1px 8px rgba(0,0,0,0.45)" }}
           >
             стихи и песни
