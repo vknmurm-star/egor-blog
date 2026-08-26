@@ -59,16 +59,39 @@ env) — так же, как в `andreev-site`. `src/app/api/auth/route.ts` (к�
 `process.env.SITE_URL`, а не `req.nextUrl.origin` — за nginx reverse
 proxy `req.nextUrl.origin` видит только `localhost:3004`.
 
+## Изображения
+
+- **Hero на главной** (`src/app/page.tsx`) — фон под шапкой готов
+  принять реальное фото: `public/images/hero-placeholder.jpg` (файла
+  пока нет, показывается CSS-градиент из токенов темы, см.
+  `public/images/README.txt`). Просто положить файл с этим именем —
+  код трогать не нужно.
+- **Обложки постов** — опциональное поле `cover` в frontmatter,
+  путь вида `/images/covers/<slug>.jpg` (см.
+  `public/images/covers/README.txt` для конвенции именования). Пустое
+  поле/отсутствующий файл не ломает вёрстку — `src/components/CoverImage.tsx`
+  скрывает себя при ошибке загрузки (`onError`), а не показывает
+  битую иконку.
+- Три из четырёх демо-постов уже содержат `cover:` с ожидаемым путём
+  (файлов там пока нет — ждут реальных изображений), `utro.md`
+  специально оставлен без поля, чтобы показать состояние "без
+  обложки".
+
 ## Деплой
 
-Процесс из skill `vds-nextjs-deploy`. `.env.local` на сервере (не в
-git) должен содержать при настройке CMS:
+Процесс из skill `vds-nextjs-deploy`. Домен и SSL уже настроены —
+`https://egor.an51.su`, nginx-vhost `egor-blog` на VDS `kvm.an51.su`,
+сертификат Let's Encrypt (автопродление через certbot). `.env.local`
+на сервере (не в git) должен содержать при настройке CMS:
 ```
 GITHUB_OAUTH_CLIENT_ID=...
 GITHUB_OAUTH_CLIENT_SECRET=...
 SITE_URL=https://egor.an51.su
 ```
 
-Автодеплой через cron настраивается на последнем этапе (`deploy.sh` +
-`auto-deploy-check.sh` + `crontab`, паттерн идентичен другим проектам
-на этом VDS).
+Автодеплой через cron **ещё не настроен** (следующий этап — вместе с
+Decap CMS: `deploy.sh` + `auto-deploy-check.sh` + `crontab`, паттерн
+идентичен другим проектам на этом VDS). До этого момента любые правки
+нужно подтягивать на сервер и пересобирать вручную (`git pull && npm
+install && npm run build && pm2 restart egor-blog` в
+`/var/www/egor-blog`).

@@ -10,6 +10,7 @@ export type PostMeta = {
   date: string;
   excerpt: string;
   audio?: string;
+  cover?: string;
 };
 
 export type Post = PostMeta & {
@@ -35,6 +36,7 @@ export function getAllPosts(): PostMeta[] {
         date: data.date as string,
         excerpt: data.excerpt as string,
         audio: data.audio as string | undefined,
+        cover: data.cover as string | undefined,
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -51,6 +53,7 @@ export function getPostBySlug(slug: string): Post | null {
     date: data.date as string,
     excerpt: data.excerpt as string,
     audio: data.audio as string | undefined,
+    cover: data.cover as string | undefined,
     content,
   };
 }

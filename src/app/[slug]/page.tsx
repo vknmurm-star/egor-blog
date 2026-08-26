@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { buildMetadata } from "@/lib/seo";
+import CoverImage from "@/components/CoverImage";
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -43,6 +44,15 @@ export default async function PostPage({
 
   return (
     <article className="mx-auto max-w-2xl px-4 py-14">
+      {post.cover && (
+        <div className="mb-8 aspect-video w-full overflow-hidden rounded bg-paper-raised border border-line">
+          <CoverImage
+            src={post.cover}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
       <Link
         href="/"
         className="text-sm text-text-muted hover:text-rust transition-colors"
