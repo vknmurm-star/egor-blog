@@ -30,7 +30,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-indigo-dark/90 via-indigo-dark/45 to-transparent" />
         <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-10">
           <p
-            className="inline-flex items-center gap-2 text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
+            className="inline-flex items-center gap-2 w-fit mx-auto px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
             style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
           >
             <Feather className="w-4 h-4" />
