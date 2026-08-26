@@ -24,19 +24,30 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--rust) 0%, var(--rust-deep) 45%, var(--ink) 100%)",
+              "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--rust) 0%, var(--rust-deep) 55%, var(--rust-dark) 100%)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-rust-dark/90 via-rust-dark/45 to-transparent" />
         <div className="relative h-full flex flex-col items-center justify-end text-center px-4 pb-10">
-          <p className="flex items-center gap-2 text-paper/80 text-xs tracking-[0.2em] uppercase mb-3">
+          <p
+            className="flex items-center gap-2 text-paper/90 text-xs tracking-[0.2em] uppercase mb-3"
+            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}
+          >
             <Feather className="w-4 h-4" />
             Записная книжка поэта
           </p>
-          <h1 className="font-display text-4xl sm:text-5xl text-paper drop-shadow-sm">
+          <h1
+            className="font-display text-4xl sm:text-5xl text-paper"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
+          >
             Егор Андреев
           </h1>
-          <p className="text-paper/85 mt-2">стихи и песни</p>
+          <p
+            className="text-paper/95 mt-2"
+            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.45)" }}
+          >
+            стихи и песни
+          </p>
         </div>
       </section>
 

@@ -9,6 +9,7 @@
   --text-muted: #8a7a68;
   --rust: #b5562f;
   --rust-deep: #8a3f22;
+  --rust-dark: #6b2f18;
   --gold: #c9a24b;
   --line: #e6d9c4;
 }
@@ -22,6 +23,7 @@
   --color-text-muted: var(--text-muted);
   --color-rust: var(--rust);
   --color-rust-deep: var(--rust-deep);
+  --color-rust-dark: var(--rust-dark);
   --color-gold: var(--gold);
   --color-line: var(--line);
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
