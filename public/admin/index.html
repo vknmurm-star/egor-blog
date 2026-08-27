@@ -8,5 +8,45 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Превью-шаблон для правой панели (Preview pane) коллекции "posts" —
+    // без него картинка cover в предпросмотре растягивается на весь
+    // экран по высоте. Виджет загрузки файла слева (media-виджет) эта
+    // правка не затрагивает, он уже нормального размера сам по себе.
+    var PostPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var title = entry.getIn(["data", "title"]);
+        var cover = entry.getIn(["data", "cover"]);
+        var body = entry.getIn(["data", "body"]);
+
+        return h(
+          "div",
+          { style: { padding: "20px", fontFamily: "Georgia, serif" } },
+          cover
+            ? h("img", {
+                src: this.props.getAsset(cover).toString(),
+                alt: title || "",
+                style: {
+                  display: "block",
+                  width: "100%",
+                  maxHeight: "400px",
+                  objectFit: "cover",
+                  marginBottom: "20px",
+                  borderRadius: "4px",
+                },
+              })
+            : null,
+          h("h1", { style: { marginBottom: "12px" } }, title),
+          h(
+            "div",
+            { style: { whiteSpace: "pre-line", lineHeight: "1.8", fontSize: "18px" } },
+            body
+          )
+        );
+      },
+    });
+    CMS.registerPreviewTemplate("posts", PostPreview);
+  </script>
 </body>
 </html>
