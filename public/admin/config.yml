@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: vknmurm-star/egor-blog
+  branch: main
+  base_url: https://egor.an51.su
+  auth_endpoint: api/auth
+
+media_folder: "public/images/covers"
+public_folder: "/images/covers"
+
+collections:
+  - name: "posts"
+    label: "Стихи"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Дата", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Короткое описание", name: "excerpt", widget: "text" }
+      - { label: "Обложка", name: "cover", widget: "image", required: false, media_folder: "/public/images/covers", public_folder: "/images/covers" }
+      - { label: "Аудио (mp3)", name: "audio", widget: "file", required: false, media_folder: "/public/audio", public_folder: "/audio" }
+      - { label: "Текст стихотворения", name: "body", widget: "text", body: true }
