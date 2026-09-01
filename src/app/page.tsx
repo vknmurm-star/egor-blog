@@ -17,41 +17,58 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero — фон готов принять реальное фото (см. /images/hero-placeholder.jpg),
-          пока используется CSS-градиент из токенов темы */}
-      <section className="relative h-[19vh] min-h-[130px] w-full overflow-hidden">
+      {/* Hero — на весь первый экран. Плотная заливка --rust как основа
+          (видна, пока /images/hero-placeholder.jpg не заменён на реальное
+          фото), поверх — затемнение для читаемости белого текста. */}
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+        <div className="absolute inset-0 bg-rust" />
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('/images/hero-placeholder.jpg'), linear-gradient(135deg, var(--indigo) 0%, var(--indigo-deep) 55%, var(--indigo-dark) 100%)",
-          }}
+          style={{ backgroundImage: "url('/images/hero-placeholder.jpg')" }}
         />
-        <div className="absolute inset-0 bg-indigo-dark/30" />
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-4 py-3">
+        <div className="absolute inset-0 bg-ink/55" />
+
+        <div className="relative flex-1 flex flex-col items-center justify-center text-center px-4 py-16">
           <p
-            className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-black/22 border border-white/15 backdrop-blur-sm text-white text-xs tracking-[0.2em] uppercase mb-2"
+            className="inline-flex items-center gap-2 w-fit mx-auto px-3 py-1 rounded-full bg-black/22 border border-white/15 backdrop-blur-sm text-white text-xs tracking-[0.2em] uppercase mb-8"
             style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
           >
             <Feather className="w-3.5 h-3.5" />
             Записная книжка поэта
           </p>
           <h1
-            className="font-display text-2xl sm:text-3xl text-paper"
-            style={{ textShadow: "0 2px 14px rgba(0,0,0,0.6)" }}
+            className="font-display font-bold uppercase leading-[0.95] text-5xl sm:text-6xl md:text-7xl"
+            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.5)" }}
           >
-            Егор Андреев
+            <span className="block text-paper">Егор</span>
+            <span className="block text-paper">Андреев</span>
+            <span className="block text-gold">+Стихи и песни</span>
           </h1>
           <p
-            className="text-paper mt-1 text-sm"
-            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.55)" }}
+            className="mt-8 max-w-xl text-paper/90 text-lg sm:text-xl leading-relaxed"
+            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.5)" }}
           >
-            стихи и песни
+            Стихи и песни, написанные в свободное время — иногда со звуком.
           </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#lenta"
+              className="px-8 py-3 bg-ink text-paper font-medium tracking-wide uppercase text-sm hover:bg-ink-soft transition-colors"
+            >
+              Читать стихи
+            </a>
+            <Link
+              href="/vecher-na-reke"
+              className="inline-flex items-center gap-2 px-8 py-3 border-2 border-gold text-paper font-medium tracking-wide uppercase text-sm hover:bg-gold hover:text-ink transition-colors"
+            >
+              <Music className="w-4 h-4" />
+              Слушать песни
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-4 py-14">
+      <section id="lenta" className="mx-auto max-w-2xl px-4 py-14">
         <p className="text-text-muted mb-10 leading-relaxed">
           Стихи и песни, написанные в свободное время. Иногда со звуком —
           под некоторыми текстами есть плеер с песней на эти слова.
