@@ -1,45 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #faf3e8;
-  --paper-raised: #fffaf1;
-  --ink: #2e2620;
-  --ink-soft: #4a3f35;
-  --text: #3a322a;
-  --text-muted: #8a7a68;
-  --rust: #b5562f;
-  --rust-deep: #8a3f22;
-  --rust-dark: #6b2f18;
-  --indigo: #806bad;
-  --indigo-deep: #674f9b;
-  --indigo-dark: #423465;
-  --gold: #c9a24b;
-  --line: #e6d9c4;
+  --bg-deep: #0b0d12;
+  --bg-base: #10131a;
+  --bg-raised: #151923;
+  --paper: #f5f0e8;
+  --paper-muted: #bdb8af;
+  --gold: #d9b382;
+  --gold-soft: #e7c79e;
+  --line: rgba(245, 240, 232, 0.12);
+  --card: rgba(255, 255, 255, 0.03);
 }
 
 @theme inline {
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-base: var(--bg-base);
+  --color-bg-raised: var(--bg-raised);
   --color-paper: var(--paper);
-  --color-paper-raised: var(--paper-raised);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-text: var(--text);
-  --color-text-muted: var(--text-muted);
-  --color-rust: var(--rust);
-  --color-rust-deep: var(--rust-deep);
-  --color-rust-dark: var(--rust-dark);
-  --color-indigo: var(--indigo);
-  --color-indigo-deep: var(--indigo-deep);
-  --color-indigo-dark: var(--indigo-dark);
+  --color-paper-muted: var(--paper-muted);
   --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
   --color-line: var(--line);
+  --color-card: var(--card);
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-poem: var(--font-lora), Georgia, serif;
+  --font-heading: var(--font-cormorant), Georgia, serif;
+  --font-poem: var(--font-cormorant), Georgia, serif;
+  --font-signature: var(--font-signature), cursive;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background: var(--paper);
-  color: var(--text);
+  background: var(--bg-base);
+  color: var(--paper);
   font-family: var(--font-sans);
 }
 
@@ -47,11 +39,44 @@ body {
   font-family: var(--font-display);
 }
 
+.font-heading {
+  font-family: var(--font-heading);
+}
+
 .font-poem {
   font-family: var(--font-poem);
+}
+
+.font-signature {
+  font-family: var(--font-signature);
+  font-style: italic;
+  font-weight: 500;
 }
 
 .poem-text {
   white-space: pre-line;
   line-height: 1.9;
+}
+
+/* Тонкая бумажная текстура для секции "О поэте" — чистый SVG-noise,
+   без отдельного файла изображения. */
+.texture-paper {
+  position: relative;
+}
+
+.texture-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
 }

@@ -43,10 +43,10 @@ export default async function PostPage({
   if (!post) notFound();
 
   return (
-    <article className="mx-auto max-w-2xl px-4 py-14">
+    <article className="mx-auto max-w-2xl px-4 pt-32 pb-14">
       {post.cover && (
-        <div className="mb-8 p-2 border-2 border-gold bg-line rounded-sm">
-          <div className="aspect-video w-full overflow-hidden bg-paper-raised">
+        <div className="mb-8 p-2 border border-gold/40 bg-bg-raised rounded-sm">
+          <div className="aspect-video w-full overflow-hidden bg-bg-raised">
             <CoverImage
               src={post.cover}
               alt={post.title}
@@ -57,14 +57,14 @@ export default async function PostPage({
       )}
       <Link
         href="/"
-        className="text-sm text-text-muted hover:text-rust transition-colors"
+        className="text-sm text-paper-muted hover:text-gold-soft transition-colors"
       >
         ← Все публикации
       </Link>
-      <p className="text-xs text-rust mt-6 mb-2 tracking-wide uppercase">
+      <p className="text-xs text-gold-soft mt-6 mb-2 tracking-wide uppercase">
         {formatDate(post.date)}
       </p>
-      <h1 className="font-display text-3xl text-ink mb-8">{post.title}</h1>
+      <h1 className="font-heading text-4xl text-paper mb-8">{post.title}</h1>
 
       {post.audio && (
         <audio controls className="w-full mb-8">
@@ -73,7 +73,7 @@ export default async function PostPage({
         </audio>
       )}
 
-      <div className="poem-text font-poem text-lg text-text">
+      <div className="poem-text font-poem text-xl text-paper/90">
         {post.content.trim()}
       </div>
     </article>
