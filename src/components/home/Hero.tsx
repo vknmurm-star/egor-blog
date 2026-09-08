@@ -35,7 +35,11 @@ export default function Hero() {
           y: bgY,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-bg-deep/70 via-bg-deep/55 to-bg-deep" />
+      {/* Затемнение сильно облегчено (было 70/55/100%) — фото должно быть
+          видно, читаемость текста держится в основном на text-shadow (как
+          в цитатном блоке), направленность градиента (темнее у краёв,
+          светлее в центре снимка) сохранена. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-bg-deep/35 via-bg-deep/15 to-bg-deep/55" />
 
       <div className="relative flex-1 flex flex-col justify-center px-6 sm:px-10 max-w-6xl mx-auto w-full">
         <div className="max-w-xl">
@@ -44,6 +48,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
             className="font-display font-medium leading-[1.05] text-5xl sm:text-6xl md:text-7xl text-paper"
+            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9)" }}
           >
             Слова,
             <br />
@@ -55,6 +60,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
             className="mt-6 max-w-md text-paper-muted text-lg leading-relaxed"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
           >
             Современная поэзия о людях, времени, любви и тишине, которая
             делает нас живыми.
@@ -80,10 +86,16 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.5 }}
             className="mt-14"
           >
-            <p className="font-heading italic text-xl sm:text-2xl text-paper/90">
+            <p
+              className="font-heading italic text-xl sm:text-2xl text-paper/90"
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
+            >
               «В каждом слове — немного больше, чем тишина»
             </p>
-            <p className="font-signature text-3xl text-gold-soft mt-2">
+            <p
+              className="font-signature text-3xl text-gold-soft mt-2"
+              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
+            >
               Егор Андреев
             </p>
           </motion.div>
@@ -95,6 +107,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.8 }}
         className="relative pb-10 flex flex-col items-center gap-2 text-paper-muted text-xs tracking-[0.2em] uppercase"
+        style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
       >
         Листайте вниз
         <motion.span
