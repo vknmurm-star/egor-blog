@@ -89,12 +89,24 @@ GITHUB_OAUTH_CLIENT_SECRET=...
 SITE_URL=https://egor.an51.su
 ```
 
-Автодеплой через cron **ещё не настроен** (следующий этап — вместе с
-Decap CMS: `deploy.sh` + `auto-deploy-check.sh` + `crontab`, паттерн
-идентичен другим проектам на этом VDS). До этого момента любые правки
-нужно подтягивать на сервер и пересобирать вручную (`git pull && npm
-install && npm run build && pm2 restart egor-blog` в
-`/var/www/egor-blog`).
+Автодеплой через cron **уже настроен** на сервере (`/var/www/egor-blog/deploy.sh`
++ `auto-deploy-check.sh`, крон каждые 2 минуты сравнивает `HEAD` с
+`origin/main` и гоняет полный передеплой с `flock`-защитой от параллельного
+запуска, лог — `/var/log/egor-blog-autodeploy.log`) — просто запушить в
+`main` на GitHub достаточно. Эти два скрипта живут только на сервере, в
+git-репозитории их нет (аналогично другим проектам на этом VDS).
+
+**Важно**: `deploy.sh` перед `git pull` не чистит untracked-файлы — если на
+сервере в рабочей копии заведутся файлы с именами, которые появятся в
+git (например `next-env.d.ts`, `package-lock.json` после `npm install`
+вручную на сервере), `git pull` в автодеплое упадёт с "would be
+overwritten by merge". Если автодеплой в логе зафейлился по этой причине —
+зайти на сервер, `rm` конфликтующие untracked-файлы в `/var/www/egor-blog`
+и либо подождать следующий тик крона, либо сделать `git pull` вручную.
+
+Ручной деплой (если нужно продеплоить раньше, чем сработает крон, или в
+обход него): `git pull && npm install && rm -rf .next && npm run build &&
+pm2 restart egor-blog` в `/var/www/egor-blog`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
