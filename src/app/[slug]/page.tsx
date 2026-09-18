@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) return {};
   return buildMetadata({
     title: post.title,
@@ -40,7 +40,13 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  // Next.js для не-ASCII (кириллических) динамических сегментов иногда
+  // передаёт сюда percent-encoded строку (например, при статической
+  // генерации: %D0%B2%D1%80%D0%B5...) вместо декодированной — хотя в
+  // generateMetadata выше тот же params.slug приходит уже декодированным.
+  // decodeURIComponent на уже декодированной ASCII-строке — no-op, так что
+  // безопасно применять всегда.
+  const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) notFound();
 
   return (
