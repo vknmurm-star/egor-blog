@@ -9,14 +9,21 @@ const nextConfig: NextConfig = {
     // транслитерированным) — переименовываем в латиницу вслед за
     // остальными постами, редирект на случай, если кто-то уже успел
     // перейти по кириллической ссылке до переименования.
+    //
+    // source указан в percent-encoded виде (не сырой кириллицей) — у
+    // Next.js обнаружился баг: для source с не-ASCII символами матчинг
+    // входящего запроса не срабатывает (см. коммит с decodeURIComponent
+    // в [slug]/page.tsx для того же класса бага в generateStaticParams).
     return [
       {
-        source: "/время-любви",
+        // /время-любви
+        source: "/%D0%B2%D1%80%D0%B5%D0%BC%D1%8F-%D0%BB%D1%8E%D0%B1%D0%B2%D0%B8",
         destination: "/vremya-lyubvi",
         permanent: true,
       },
       {
-        source: "/молитва",
+        // /молитва
+        source: "/%D0%BC%D0%BE%D0%BB%D0%B8%D1%82%D0%B2%D0%B0",
         destination: "/molitva",
         permanent: true,
       },
