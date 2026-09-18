@@ -14,7 +14,7 @@ export default function About() {
           className="relative min-h-[420px] md:min-h-[560px]"
         >
           <div
-            className="absolute inset-0 bg-cover bg-[position:center_28%] grayscale"
+            className="about-photo absolute inset-0 bg-cover bg-[position:center_28%] grayscale"
             style={{ backgroundImage: "url('/images/portrait-placeholder.jpg')" }}
           />
           <div className="absolute inset-0 bg-bg-deep/30" />
