@@ -3,7 +3,7 @@ import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteHeader from "@/components/SiteHeader";
 import Link from "next/link";
-import { Send, Youtube } from "lucide-react";
+import { Mail, Send, Youtube } from "lucide-react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -113,6 +113,13 @@ export default function RootLayout({
               </nav>
 
               <div className="flex items-center gap-4">
+                <a
+                  href="mailto:AndreevBank@bk.ru"
+                  aria-label="Email"
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-line text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
                 {/* TODO: заменить на реальные ссылки на соцсети */}
                 <a
                   href="https://t.me/"
