@@ -1,11 +1,12 @@
-# egor-blog
+# egor-blog (egorpoet.ru)
 
-Личный блог Егора Андреева — стихи и песни на его стихи. Отдельный проект
-от юридического сайта andreev-zakon.ru (тот развёрнут на другом сервере,
-Beget). Этот сайт живёт на собственном VDS `kvm.an51.su`, том же, где
-`site-001`, `market-store`, `finance-001`, `mv-004`.
+Личный блог Егора Андреева — стихи и песни на его стихи. Мигрирован с
+собственного VDS `kvm.an51.su` (где жил как `egor.an51.su`) на хостинг
+Beget — тот же сервер, где развёрнут `andreev-zakon.ru` (проект
+andreev-site). **andreev-zakon.ru при работе с этим проектом трогать
+нельзя** — сервер общий для обоих сайтов на одном IP.
 
-Домен: **egor.an51.su**.
+Домен: **egorpoet.ru**.
 
 ## Стек
 
@@ -15,9 +16,9 @@ Next.js (App Router) + Tailwind v4 + Decap CMS, без базы данных —
 
 ## Порт и процесс
 
-PM2-процесс `egor-blog`, слушает порт **3004** (следующий свободный на
-момент создания — 3000/3001/3002/3003 заняты другими проектами на этом
-же VDS). Порт передаётся через `PORT=3004` при `pm2 start`.
+PM2-процесс `egorpoet`, слушает порт **3002** (следующий свободный на
+Beget на момент миграции — 3000 занят демо-приложением Beget, 3001 —
+`andreev-site`). Порт передаётся через `PORT=3002` при `pm2 start`.
 
 ## Формат поста
 
@@ -53,11 +54,11 @@ pre-line` в `.poem-text`), не через `marked`/markdown-парсинг —
 
 ## SITE_URL и абсолютные URL
 
-`src/lib/seo.ts` хардкодит `SITE_URL = "https://egor.an51.su"` (не из
-env) — так же, как в `andreev-site`. `src/app/api/auth/route.ts` (когда
-будет добавлен на этапе настройки CMS) ДОЛЖЕН брать базовый URL из
-`process.env.SITE_URL`, а не `req.nextUrl.origin` — за nginx reverse
-proxy `req.nextUrl.origin` видит только `localhost:3004`.
+`src/lib/seo.ts` хардкодит `SITE_URL = "https://egorpoet.ru"` (не из
+env) — так же, как в `andreev-site`. `src/app/api/auth/route.ts` и
+`api/callback/route.ts` берут базовый URL из `process.env.SITE_URL`, а
+не `req.nextUrl.origin` — за nginx reverse proxy `req.nextUrl.origin`
+видит только `localhost:3002`.
 
 ## Изображения
 
@@ -79,34 +80,21 @@ proxy `req.nextUrl.origin` видит только `localhost:3004`.
 
 ## Деплой
 
-Процесс из skill `vds-nextjs-deploy`. Домен и SSL уже настроены —
-`https://egor.an51.su`, nginx-vhost `egor-blog` на VDS `kvm.an51.su`,
-сертификат Let's Encrypt (автопродление через certbot). `.env.local`
-на сервере (не в git) должен содержать при настройке CMS:
+Сервер — Beget (IP 159.194.200.182), путь `/var/www/egorpoet-site`,
+процесс из skill `beget-cms-deploy` (по аналогии с `andreev-site`).
+`.env.local` на сервере (не в git) должен содержать:
 ```
 GITHUB_OAUTH_CLIENT_ID=...
 GITHUB_OAUTH_CLIENT_SECRET=...
-SITE_URL=https://egor.an51.su
+SITE_URL=https://egorpoet.ru
 ```
+**Важно**: GitHub OAuth App поддерживает только один callback URL —
+для egorpoet.ru нужно отдельное OAuth-приложение (не то же, что
+использовалось для egor.an51.su), иначе смена callback сломает вход в
+CMS на старом домене, пока он ещё жив.
 
-Автодеплой через cron **уже настроен** на сервере (`/var/www/egor-blog/deploy.sh`
-+ `auto-deploy-check.sh`, крон каждые 2 минуты сравнивает `HEAD` с
-`origin/main` и гоняет полный передеплой с `flock`-защитой от параллельного
-запуска, лог — `/var/log/egor-blog-autodeploy.log`) — просто запушить в
-`main` на GitHub достаточно. Эти два скрипта живут только на сервере, в
-git-репозитории их нет (аналогично другим проектам на этом VDS).
-
-**Важно**: `deploy.sh` перед `git pull` не чистит untracked-файлы — если на
-сервере в рабочей копии заведутся файлы с именами, которые появятся в
-git (например `next-env.d.ts`, `package-lock.json` после `npm install`
-вручную на сервере), `git pull` в автодеплое упадёт с "would be
-overwritten by merge". Если автодеплой в логе зафейлился по этой причине —
-зайти на сервер, `rm` конфликтующие untracked-файлы в `/var/www/egor-blog`
-и либо подождать следующий тик крона, либо сделать `git pull` вручную.
-
-Ручной деплой (если нужно продеплоить раньше, чем сработает крон, или в
-обход него): `git pull && npm install && rm -rf .next && npm run build &&
-pm2 restart egor-blog` в `/var/www/egor-blog`.
+Ручной деплой: `git pull && npm install && rm -rf .next && npm run build &&
+pm2 restart egorpoet` в `/var/www/egorpoet-site`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

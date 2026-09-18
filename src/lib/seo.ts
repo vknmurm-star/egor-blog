@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-const SITE_URL = "https://egor.an51.su";
+const SITE_URL = "https://egorpoet.ru";
 const SITE_NAME = "Егор Андреев — стихи и песни";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-placeholder.jpg`;
 
 export function buildMetadata({
   title,

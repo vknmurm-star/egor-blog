@@ -13,6 +13,26 @@ export const metadata: Metadata = {
   },
   description:
     "Егор Андреев — современная поэзия о людях, времени, любви и тишине. Стихи, сборники, встречи и чтения.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: SITE_NAME,
+    description:
+      "Егор Андреев — современная поэзия о людях, времени, любви и тишине. Стихи, сборники, встречи и чтения.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [{ url: `${SITE_URL}/images/hero-placeholder.jpg`, width: 1881, height: 836 }],
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description:
+      "Егор Андреев — современная поэзия о людях, времени, любви и тишине. Стихи, сборники, встречи и чтения.",
+    images: [`${SITE_URL}/images/hero-placeholder.jpg`],
+  },
 };
 
 const personJsonLd = {

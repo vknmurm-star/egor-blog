@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, SITE_URL } from "@/lib/seo";
 import CoverImage from "@/components/CoverImage";
 
 export function generateStaticParams() {
@@ -21,6 +21,7 @@ export async function generateMetadata({
     title: post.title,
     description: post.excerpt,
     path: `/${post.slug}`,
+    image: post.cover ? `${SITE_URL}${post.cover}` : undefined,
   });
 }
 

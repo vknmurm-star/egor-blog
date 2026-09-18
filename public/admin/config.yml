@@ -2,7 +2,7 @@ backend:
   name: github
   repo: vknmurm-star/egor-blog
   branch: main
-  base_url: https://egor.an51.su
+  base_url: https://egorpoet.ru
   auth_endpoint: api/auth
 
 media_folder: "public/images/covers"
