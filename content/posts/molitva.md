@@ -1,5 +1,6 @@
 ---
 title: "МОЛИТВА "
+date: "2019-07-24"
 excerpt: Прошу у бога я любви
 cover: /images/covers/20201121_084700.jpg
 audio: /audio/молитва.mp3

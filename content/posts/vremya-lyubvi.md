@@ -1,5 +1,6 @@
 ---
 title: ВРЕМЯ ЛЮБВИ
+date: "2019-10-22"
 excerpt: Любви все возрасты
 cover: /images/covers/img_0062.jpg
 audio: /audio/капает-время.mp3

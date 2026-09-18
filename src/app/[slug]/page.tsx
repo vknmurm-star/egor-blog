@@ -25,8 +25,12 @@ export async function generateMetadata({
   });
 }
 
-function formatDate(iso: string) {
+function formatDate(iso?: string) {
+  if (!iso) return null;
   const d = new Date(iso);
+  // Egor иногда сохраняет через CMS без поля "Дата" — без этой проверки
+  // showed "Invalid Date" вместо того, чтобы просто скрыть строку.
+  if (Number.isNaN(d.getTime())) return null;
   return d.toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "long",
@@ -68,9 +72,11 @@ export default async function PostPage({
       >
         ← Все публикации
       </Link>
-      <p className="text-xs text-gold-soft mt-6 mb-2 tracking-wide uppercase">
-        {formatDate(post.date)}
-      </p>
+      {formatDate(post.date) && (
+        <p className="text-xs text-gold-soft mt-6 mb-2 tracking-wide uppercase">
+          {formatDate(post.date)}
+        </p>
+      )}
       <h1 className="font-heading text-4xl text-paper mb-8">{post.title}</h1>
 
       {post.audio && (
