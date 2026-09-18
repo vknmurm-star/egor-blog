@@ -1,5 +1,6 @@
 ---
 title: ОТЕЦ
+date: "2011-09-12"
 excerpt: Отец - всегда пример ребенку!
 cover: /images/covers/муж-и-ребенок-строят-дом.jpg
 audio: /audio/отец.mp3

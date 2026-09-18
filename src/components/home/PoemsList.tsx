@@ -6,8 +6,12 @@ import { Music } from "lucide-react";
 import CoverImage from "@/components/CoverImage";
 import type { PostMeta } from "@/lib/posts";
 
-function formatDate(iso: string) {
+function formatDate(iso?: string) {
+  if (!iso) return null;
   const d = new Date(iso);
+  // Egor иногда сохраняет через CMS без поля "Дата" — без этой проверки
+  // показывалось "Invalid Date" вместо того, чтобы просто скрыть строку.
+  if (Number.isNaN(d.getTime())) return null;
   return d.toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "long",
