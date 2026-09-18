@@ -20,4 +20,5 @@ collections:
       - { label: "Короткое описание", name: "excerpt", widget: "text" }
       - { label: "Обложка", name: "cover", widget: "image", required: false, media_folder: "/public/images/covers", public_folder: "/images/covers" }
       - { label: "Аудио (mp3)", name: "audio", widget: "file", required: false, media_folder: "/public/audio", public_folder: "/audio" }
+      - { label: "Видео (mp4, до 90 МБ, 720p)", name: "video", widget: "file", required: false, media_folder: "/public/video", public_folder: "/video", media_library: { config: { max_file_size: 94371840 } } }
       - { label: "Текст стихотворения", name: "body", widget: "text", body: true }

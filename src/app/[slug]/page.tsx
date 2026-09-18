@@ -86,6 +86,21 @@ export default async function PostPage({
         </audio>
       )}
 
+      {post.video && (
+        // preload="metadata" — не тянет всё видео каждому, кто просто
+        // читает текст стиха, только длительность/первый кадр.
+        <video
+          controls
+          playsInline
+          preload="metadata"
+          poster={post.cover}
+          className="w-full mb-8 rounded-sm bg-black"
+        >
+          <source src={post.video} type="video/mp4" />
+          Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+      )}
+
       <div className="poem-text font-poem text-xl text-paper/90">
         {post.content.trim()}
       </div>

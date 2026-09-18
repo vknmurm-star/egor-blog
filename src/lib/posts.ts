@@ -15,6 +15,7 @@ export type PostMeta = {
 
 export type Post = PostMeta & {
   content: string;
+  video?: string;
 };
 
 function listSlugs(): string[] {
@@ -54,6 +55,7 @@ export function getPostBySlug(slug: string): Post | null {
     excerpt: data.excerpt as string,
     audio: data.audio as string | undefined,
     cover: data.cover as string | undefined,
+    video: data.video as string | undefined,
     content,
   };
 }
