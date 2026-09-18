@@ -13,7 +13,7 @@ export default function QuoteBlock() {
         className="absolute inset-0 bg-cover bg-[position:center_70%]"
         style={{ backgroundImage: "url('/images/quote-bg.jpg')" }}
       />
-      <div className="absolute inset-0 bg-bg-deep/25" />
+      <div className="absolute inset-0 bg-fixed-dark/25" />
       <div
         className="absolute inset-0"
         style={{
@@ -33,14 +33,14 @@ export default function QuoteBlock() {
             читаемость текста держится в основном на text-shadow (как в
             hero на GENHOME), а не на плотном оверлее. */}
         <p
-          className="font-heading text-2xl sm:text-3xl md:text-4xl leading-snug text-paper"
+          className="font-heading text-2xl sm:text-3xl md:text-4xl leading-snug text-fixed-light"
           style={{ textShadow: "0 2px 16px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
         >
           «Поэзия не меняет мир. Но она меняет людей.
           <br className="hidden sm:block" /> А люди — это и есть мир.»
         </p>
         <p
-          className="font-signature text-3xl text-gold-soft mt-8"
+          className="font-signature text-3xl text-fixed-gold mt-8"
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
         >
           Егор Андреев

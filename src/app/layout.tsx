@@ -54,6 +54,14 @@ export default function RootLayout({
   return (
     <html lang="ru" className="h-full">
       <head>
+        {/* Anti-FOUC: применяем сохранённую тему синхронно, до отрисовки,
+            иначе при светлой теме будет заметная вспышка тёмной на долю
+            секунды перед гидратацией ThemeToggle. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

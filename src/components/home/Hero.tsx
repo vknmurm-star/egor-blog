@@ -20,7 +20,7 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-screen w-full overflow-hidden flex flex-col"
     >
-      <div className="absolute inset-0 bg-bg-deep" />
+      <div className="absolute inset-0 bg-fixed-dark" />
       {/* Фото — вечерний кабинет поэта, блокнот, перьевая ручка, лампа,
           панорамное окно на закатный город. Кадр очень широкий (2.25:1),
           поэтому на мобильных используется bg-position со сдвигом влево —
@@ -38,8 +38,10 @@ export default function Hero() {
       {/* Затемнение сильно облегчено (было 70/55/100%) — фото должно быть
           видно, читаемость текста держится в основном на text-shadow (как
           в цитатном блоке), направленность градиента (темнее у краёв,
-          светлее в центре снимка) сохранена. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg-deep/35 via-bg-deep/15 to-bg-deep/55" />
+          светлее в центре снимка) сохранена.
+          fixed-dark, а не bg-deep — текст и скрим над фото не должны
+          светлеть в светлой теме, иначе исчезнет контраст. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-fixed-dark/35 via-fixed-dark/15 to-fixed-dark/55" />
 
       <div className="relative flex-1 flex flex-col justify-center px-6 sm:px-10 max-w-6xl mx-auto w-full">
         <div className="max-w-xl">
@@ -47,7 +49,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="font-display font-medium leading-[1.05] text-5xl sm:text-6xl md:text-7xl text-paper"
+            className="font-display font-medium leading-[1.05] text-5xl sm:text-6xl md:text-7xl text-fixed-light"
             style={{ textShadow: "0 4px 24px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9)" }}
           >
             Слова,
@@ -59,7 +61,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
-            className="mt-6 max-w-md text-paper-muted text-lg leading-relaxed"
+            className="mt-6 max-w-md text-fixed-light/75 text-lg leading-relaxed"
             style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
           >
             Современная поэзия о людях, времени, любви и тишине, которая
@@ -74,7 +76,7 @@ export default function Hero() {
           >
             <a
               href="#stihi"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-gold text-bg-deep font-medium tracking-wide rounded-full hover:bg-gold-soft transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-fixed-gold text-fixed-dark font-medium tracking-wide rounded-full hover:brightness-110 transition-[filter]"
             >
               Читать стихи →
             </a>
@@ -87,13 +89,13 @@ export default function Hero() {
             className="mt-14"
           >
             <p
-              className="font-heading italic text-xl sm:text-2xl text-paper/90"
+              className="font-heading italic text-xl sm:text-2xl text-fixed-light/90"
               style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
             >
               «В каждом слове — немного больше, чем тишина»
             </p>
             <p
-              className="font-signature text-3xl text-gold-soft mt-2"
+              className="font-signature text-3xl text-fixed-gold mt-2"
               style={{ textShadow: "0 2px 10px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)" }}
             >
               Егор Андреев
@@ -106,7 +108,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.8 }}
-        className="relative pb-10 flex flex-col items-center gap-2 text-paper-muted text-xs tracking-[0.2em] uppercase"
+        className="relative pb-10 flex flex-col items-center gap-2 text-fixed-light/75 text-xs tracking-[0.2em] uppercase"
         style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
       >
         Листайте вниз

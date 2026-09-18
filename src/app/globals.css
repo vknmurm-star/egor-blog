@@ -10,6 +10,31 @@
   --gold-soft: #e7c79e;
   --line: rgba(245, 240, 232, 0.12);
   --card: rgba(255, 255, 255, 0.03);
+  --card-hairline: 255, 255, 255;
+
+  /* Фиксированные токены — НЕ меняются между темами. Нужны там, где текст
+     лежит поверх фотографии (Hero, QuoteBlock) с расчётом на тёмное
+     затемнение и светлый текст: если бы эти места брали цвет из
+     --paper/--bg-deep, в светлой теме они стали бы тёмным текстом на
+     тёмном скриме поверх фото — нечитаемо. */
+  --fixed-dark: #0b0d12;
+  --fixed-light: #f5f0e8;
+  --fixed-gold: #e7c79e;
+}
+
+/* Светлая тема — переключается атрибутом data-theme="light" на <html>
+   (см. ThemeToggle.tsx). Тёмная остаётся дефолтом. */
+:root[data-theme="light"] {
+  --bg-deep: #ece3d3;
+  --bg-base: #f8f3ea;
+  --bg-raised: #ffffff;
+  --paper: #221d14;
+  --paper-muted: #6b6255;
+  --gold: #a9743f;
+  --gold-soft: #8a5a28;
+  --line: rgba(34, 29, 20, 0.12);
+  --card: rgba(0, 0, 0, 0.03);
+  --card-hairline: 0, 0, 0;
 }
 
 @theme inline {
@@ -22,6 +47,9 @@
   --color-gold-soft: var(--gold-soft);
   --color-line: var(--line);
   --color-card: var(--card);
+  --color-fixed-dark: var(--fixed-dark);
+  --color-fixed-light: var(--fixed-light);
+  --color-fixed-gold: var(--fixed-gold);
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-heading: var(--font-cormorant), Georgia, serif;
   --font-poem: var(--font-cormorant), Georgia, serif;
@@ -33,6 +61,7 @@ body {
   background: var(--bg-base);
   color: var(--paper);
   font-family: var(--font-sans);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .font-display {
@@ -75,7 +104,7 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(var(--card-hairline), 0.04);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--line);
