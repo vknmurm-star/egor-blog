@@ -39,6 +39,12 @@ const nextConfig: NextConfig = {
         destination: "/otec",
         permanent: true,
       },
+      {
+        // /танцы
+        source: "/%D1%82%D0%B0%D0%BD%D1%86%D1%8B",
+        destination: "/tancy",
+        permanent: true,
+      },
     ];
   },
 };

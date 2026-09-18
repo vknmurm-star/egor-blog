@@ -1,5 +1,6 @@
 ---
 title: ТАНЦЫ
+date: "2009-07-19"
 excerpt: Танцы живут в моём сердце
 cover: /images/covers/p1010860.jpg
 audio: /audio/танцы-ларива-егор-андреев.mp3
