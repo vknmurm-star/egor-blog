@@ -43,7 +43,15 @@ export default function Hero() {
           светлеть в светлой теме, иначе исчезнет контраст. */}
       <div className="absolute inset-0 bg-gradient-to-b from-fixed-dark/35 via-fixed-dark/15 to-fixed-dark/55" />
 
-      <div className="relative flex-1 flex flex-col justify-center px-6 sm:px-10 max-w-6xl mx-auto w-full">
+      {/* pt-24 + justify-start на мобильных — намеренно НЕ justify-center
+          на всю высоту секции: на реальных телефонах видимая высота
+          вьюпорта (за вычетом адресной строки браузера) заметно меньше,
+          чем в devtools, и центрирование по min-h-screen задвигало верх
+          заголовка ПОД фиксированную шапку (~83px). pt-24 (96px) гарантирует
+          отступ независимо от высоты вьюпорта. С sm (640px+) возвращаем
+          прежнее центрирование — на десктопе/планшетах вьюпорт всегда выше
+          шапки с большим запасом, там ничего не менялось. */}
+      <div className="relative flex-1 flex flex-col justify-start sm:justify-center pt-24 sm:pt-0 px-6 sm:px-10 max-w-6xl mx-auto w-full">
         <div className="max-w-xl">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
