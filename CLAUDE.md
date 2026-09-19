@@ -96,6 +96,80 @@ CMS на старом домене, пока он ещё жив.
 Ручной деплой: `git pull && npm install && rm -rf .next && npm run build &&
 pm2 restart egorpoet` в `/var/www/egorpoet-site`.
 
+## Подписка на новости (рассылка о новых стихах)
+
+Реализована полностью (раньше `/api/subscribe` был заглушкой с одним
+`console.log`) — по тому же паттерну, что форма обратной связи на
+andreev-zakon.ru (nodemailer + Timeweb SMTP, honeypot, rate-limit), плюс
+собственно рассылка о новых постах и отписка.
+
+**Хранилище — JSON-файлы в `data/` (в `.gitignore`, не в git):**
+- `data/subscribers.json` — массив `{ email, token, subscribedAt }`.
+  `token` — случайный hex (`crypto.randomBytes(24)`), нужен для ссылки
+  отписки, чтобы не передавать голый email в query. Работа с файлом —
+  `src/lib/subscribers.ts` (`addSubscriber`/`removeSubscriberByToken`,
+  дедуп по email регистронезависимо).
+- `data/last-notified-posts.json` — `{ slugs: [...] }`, слаги постов, о
+  которых уже разослано письмо. **При первом запуске скрипта рассылки
+  (файла ещё нет) он создаётся сразу со списком ВСЕХ текущих постов БЕЗ
+  отправки писем** — иначе при включении рассылки подписчики бы получили
+  разом письма про все старые стихи.
+
+**Подписка (`src/components/home/Subscribe.tsx` → `POST /api/subscribe`,
+`src/app/api/subscribe/route.ts`):** honeypot-поле `website`, rate-limit
+5 запросов/10 мин с IP (`src/lib/rateLimit.ts`, тот же паттерн, что в
+andreev-site — за nginx `X-Forwarded-For`/`X-Real-IP` уже проброшены,
+проверено в текущем конфиге egorpoet). При НОВОМ email: письмо-уведомление
+администратору (`ADMIN_EMAIL`) «Новый подписчик: …» + best-effort письмо-
+подтверждение самому подписчику со ссылкой отписки. Повторная отправка тем
+же email не шлёт уведомление админу повторно (дедуп по email в
+`addSubscriber`).
+
+**Рассылка о новых постах (`scripts/notify-subscribers.mjs`):** обычный
+`.mjs`-скрипт, запускается напрямую через `node` (НЕ импортирует
+`src/lib/*.ts` — переиспользовать TS-модули без прогона через
+Next.js/ts-node нельзя, поэтому чтение env/SMTP и подписчиков в скрипте
+продублировано в упрощённом виде). Встроен в тот же cron-цикл, что
+автодеплой — см. `auto-deploy-check.sh` на сервере (**не в git**,
+ПОСЛЕ `pm2 restart egorpoet` там добавлен вызов
+`node scripts/notify-subscribers.mjs`). Логика: сравнивает текущие слаги
+постов (`content/posts/*.md`) с `data/last-notified-posts.json`; если
+появились новые — на каждый новый пост каждому подписчику уходит письмо
+(заголовок + прямая ссылка `${SITE_URL}/<slug>` + ссылка отписки с его
+токеном), затем `last-notified-posts.json` обновляется на текущий полный
+список слагов. **Обновляется всегда после попытки рассылки, даже если
+SMTP временно недоступен** — осознанный компромисс, чтобы разовый сбой не
+превратился в бесконечный повтор рассылки на каждом cron-цикле (см.
+комментарий в самом скрипте).
+
+**Отписка (`/unsubscribe?token=...`, `src/app/unsubscribe/page.tsx` +
+`src/components/UnsubscribeForm.tsx` → `POST /api/unsubscribe`):**
+показывает подтверждение, по кнопке удаляет запись из `subscribers.json`
+по токену. Ответ API нейтрален и для найденного, и для отсутствующего
+токена (`{ ok: true, removed: boolean }`) — страница просто показывает
+разный текст ("Вы отписаны" / "Вы уже не подписаны"), не намекая на
+техническую причину.
+
+**SMTP** — тот же Timeweb-релей, что у andreev-zakon.ru
+(`smtp.timeweb.ru:465`, `SMTP_USER=egor@an51.su`), решение явно принято
+пользователем (не заводить отдельный ящик под egorpoet.ru). **Но
+`ADMIN_EMAIL` для ЭТОГО проекта — `AndreevBank@bk.ru`** (контакт
+Егора-поэта), не перепутать с `ADMIN_EMAIL=egor@an51.su` в `.env.local`
+проекта andreev-site — это два разных файла `.env.local` в двух разных
+директориях (`/var/www/andreev-site` и `/var/www/egorpoet-site`), но
+значение легко перепутать при копировании по аналогии.
+
+Требуемые переменные в `.env.local` на Beget (`SMTP_PASS` пользователь
+дописывает сам через SSH, не в код/git/чат):
+```
+SMTP_HOST=smtp.timeweb.ru
+SMTP_PORT=465
+SMTP_USER=egor@an51.su
+SMTP_FROM=egor@an51.su
+ADMIN_EMAIL=AndreevBank@bk.ru
+SMTP_PASS=<пароль от egor@an51.su, тот же, что у andreev-site>
+```
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

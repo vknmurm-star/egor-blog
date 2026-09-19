@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function Subscribe() {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -15,7 +16,7 @@ export default function Subscribe() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Ошибка");
@@ -48,6 +49,16 @@ export default function Subscribe() {
           onSubmit={handleSubmit}
           className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
         >
+          {/* Honeypot: скрыто от людей, боты часто заполняют все поля подряд */}
+          <input
+            type="text"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
           <input
             type="email"
             required
