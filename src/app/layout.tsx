@@ -42,7 +42,6 @@ const personJsonLd = {
   jobTitle: "Поэт",
   url: SITE_URL,
   sameAs: [
-    "https://t.me/",
     "https://vk.com/",
     "https://youtube.com/",
   ],
