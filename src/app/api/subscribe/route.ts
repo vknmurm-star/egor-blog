@@ -12,6 +12,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 interface Body {
   email?: string;
   website?: string; // honeypot — люди его не заполняют
+  consent?: boolean;
 }
 
 export async function POST(req: NextRequest) {
@@ -42,6 +43,15 @@ export async function POST(req: NextRequest) {
   const email = (body.email ?? "").trim();
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Введите корректный e-mail" }, { status: 400 });
+  }
+
+  // Согласие на обработку персональных данных (152-ФЗ) — не полагаемся на
+  // то, что фронтенд уже проверил чекбокс, запрос без него отклоняем и тут.
+  if (body.consent !== true) {
+    return NextResponse.json(
+      { error: "Нужно согласие на обработку персональных данных" },
+      { status: 400 },
+    );
   }
 
   const { token, alreadySubscribed } = addSubscriber(email);

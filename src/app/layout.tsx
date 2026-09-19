@@ -142,8 +142,11 @@ export default function RootLayout({
               </div>
             </div>
 
-            <div className="mt-10 pt-6 border-t border-line text-xs text-paper-muted/70 text-center">
-              © {new Date().getFullYear()} Егор Андреев. Все права защищены.
+            <div className="mt-10 pt-6 border-t border-line text-xs text-paper-muted/70 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+              <span>© {new Date().getFullYear()} Егор Андреев. Все права защищены.</span>
+              <Link href="/privacy" className="hover:text-gold-soft transition-colors">
+                Политика обработки персональных данных
+              </Link>
             </div>
           </div>
         </footer>

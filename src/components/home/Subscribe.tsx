@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function Subscribe() {
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -16,13 +18,14 @@ export default function Subscribe() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, website }),
+        body: JSON.stringify({ email, website, consent }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Ошибка");
       setStatus("done");
       setMessage("Спасибо! Вы подписаны.");
       setEmail("");
+      setConsent(false);
     } catch (err) {
       setStatus("error");
       setMessage(err instanceof Error ? err.message : "Что-то пошло не так");
@@ -45,10 +48,7 @@ export default function Subscribe() {
           Новости, новые стихи и анонсы мероприятий
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-        >
+        <form onSubmit={handleSubmit} className="mt-8 max-w-md mx-auto">
           {/* Honeypot: скрыто от людей, боты часто заполняют все поля подряд */}
           <input
             type="text"
@@ -59,21 +59,42 @@ export default function Subscribe() {
             aria-hidden="true"
             className="hidden"
           />
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Ваш e-mail"
-            className="flex-1 px-5 py-3 rounded-full bg-white/5 border border-line text-paper placeholder:text-paper-muted focus:outline-none focus:border-gold/60"
-          />
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="px-7 py-3 bg-gold text-bg-deep font-medium rounded-full hover:bg-gold-soft transition-colors disabled:opacity-60"
-          >
-            {status === "loading" ? "Отправка…" : "Подписаться"}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Ваш e-mail"
+              className="flex-1 px-5 py-3 rounded-full bg-white/5 border border-line text-paper placeholder:text-paper-muted focus:outline-none focus:border-gold/60"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading" || !consent}
+              className="px-7 py-3 bg-gold text-bg-deep font-medium rounded-full hover:bg-gold-soft transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "Отправка…" : "Подписаться"}
+            </button>
+          </div>
+
+          <label className="mt-4 flex items-start gap-2 text-xs text-paper-muted text-left justify-center">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              required
+              className="mt-0.5 accent-gold"
+            />
+            <span>
+              Я согласен на{" "}
+              <Link
+                href="/privacy"
+                className="text-gold-soft underline underline-offset-4 hover:text-gold"
+              >
+                обработку персональных данных
+              </Link>
+            </span>
+          </label>
         </form>
 
         {message && (
