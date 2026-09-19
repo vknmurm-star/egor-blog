@@ -3,7 +3,7 @@ import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteHeader from "@/components/SiteHeader";
 import Link from "next/link";
-import { Mail, Send, Youtube } from "lucide-react";
+import { Mail, Youtube } from "lucide-react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -121,13 +121,6 @@ export default function RootLayout({
                   <Mail className="w-4 h-4" />
                 </a>
                 {/* TODO: заменить на реальные ссылки на соцсети */}
-                <a
-                  href="https://t.me/"
-                  aria-label="Telegram"
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-line text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
-                >
-                  <Send className="w-4 h-4" />
-                </a>
                 <a
                   href="https://vk.com/"
                   aria-label="VK"
