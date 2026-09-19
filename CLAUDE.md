@@ -130,9 +130,10 @@ andreev-site — за nginx `X-Forwarded-For`/`X-Real-IP` уже проброш�
 `src/lib/*.ts` — переиспользовать TS-модули без прогона через
 Next.js/ts-node нельзя, поэтому чтение env/SMTP и подписчиков в скрипте
 продублировано в упрощённом виде). Встроен в тот же cron-цикл, что
-автодеплой — см. `auto-deploy-check.sh` на сервере (**не в git**,
-ПОСЛЕ `pm2 restart egorpoet` там добавлен вызов
-`node scripts/notify-subscribers.mjs`). Логика: сравнивает текущие слаги
+автодеплой — вызов добавлен в конец `deploy.sh` на сервере (**не в git**,
+как и `auto-deploy-check.sh`, который его вызывает), ПОСЛЕ `pm2 restart
+egorpoet`: `node scripts/notify-subscribers.mjs`. Логика: сравнивает
+текущие слаги
 постов (`content/posts/*.md`) с `data/last-notified-posts.json`; если
 появились новые — на каждый новый пост каждому подписчику уходит письмо
 (заголовок + прямая ссылка `${SITE_URL}/<slug>` + ссылка отписки с его
