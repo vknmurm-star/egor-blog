@@ -10,7 +10,8 @@ const NAV_LINKS = [
   { href: "/#stihi", label: "Стихи" },
   { href: "/#books", label: "Книги" },
   { href: "/#events", label: "События" },
-  { href: "/#subscribe", label: "Контакты" },
+  // TODO: заменить на страницу контактов, когда Егор пришлёт данные
+  { href: "mailto:AndreevBank@bk.ru", label: "Контакты" },
 ];
 
 export default function SiteHeader() {
@@ -44,8 +45,9 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
+          {/* TODO: заменить на страницу контактов, когда Егор пришлёт данные */}
           <Link
-            href="/#subscribe"
+            href="mailto:AndreevBank@bk.ru"
             className="hidden md:inline-flex items-center px-5 py-2 border border-fixed-gold/60 text-fixed-gold text-sm tracking-wide rounded-full hover:bg-fixed-gold hover:text-fixed-dark transition-colors"
           >
             Связаться

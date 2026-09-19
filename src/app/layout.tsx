@@ -112,7 +112,8 @@ export default function RootLayout({
                 <Link href="/#stihi" className="hover:text-gold-soft transition-colors">Стихи</Link>
                 <Link href="/#books" className="hover:text-gold-soft transition-colors">Книги</Link>
                 <Link href="/#events" className="hover:text-gold-soft transition-colors">События</Link>
-                <Link href="/#subscribe" className="hover:text-gold-soft transition-colors">Контакты</Link>
+                {/* TODO: заменить на страницу контактов, когда Егор пришлёт данные */}
+                <Link href="mailto:AndreevBank@bk.ru" className="hover:text-gold-soft transition-colors">Контакты</Link>
               </nav>
 
               <div className="flex items-center gap-4">
