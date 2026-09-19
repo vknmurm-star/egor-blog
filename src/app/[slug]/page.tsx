@@ -22,6 +22,7 @@ export async function generateMetadata({
     description: post.excerpt,
     path: `/${post.slug}`,
     image: post.cover ? `${SITE_URL}${post.cover}` : undefined,
+    publishedTime: post.date,
   });
 }
 
@@ -53,8 +54,34 @@ export default async function PostPage({
   const post = getPostBySlug(decodeURIComponent(slug));
   if (!post) notFound();
 
+  // getAllPosts() отсортирован от новых к старым — соседи по дате
+  // публикации, для простой навигации "предыдущий/следующий стих".
+  const allPosts = getAllPosts();
+  const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+  const olderPost = currentIndex >= 0 ? allPosts[currentIndex + 1] : undefined;
+  const newerPost = currentIndex > 0 ? allPosts[currentIndex - 1] : undefined;
+
+  const creativeWorkJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: post.title,
+    text: post.content.trim(),
+    description: post.excerpt,
+    url: `${SITE_URL}/${post.slug}`,
+    datePublished: post.date,
+    image: post.cover ? `${SITE_URL}${post.cover}` : undefined,
+    author: {
+      "@type": "Person",
+      name: "Егор Андреев",
+    },
+  };
+
   return (
     <article className="mx-auto max-w-2xl px-4 pt-32 pb-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }}
+      />
       {post.cover && (
         <div className="mb-8 p-2 border border-gold/40 bg-bg-raised rounded-sm">
           <div className="aspect-video w-full overflow-hidden bg-bg-raised">
@@ -104,6 +131,29 @@ export default async function PostPage({
       <div className="poem-text font-poem text-xl text-paper/90">
         {post.content.trim()}
       </div>
+
+      {(olderPost || newerPost) && (
+        <nav className="mt-14 pt-8 border-t border-line flex items-center justify-between gap-4 text-sm">
+          {olderPost ? (
+            <Link
+              href={`/${olderPost.slug}`}
+              className="text-paper-muted hover:text-gold-soft transition-colors"
+            >
+              ← {olderPost.title}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {newerPost && (
+            <Link
+              href={`/${newerPost.slug}`}
+              className="text-right text-paper-muted hover:text-gold-soft transition-colors"
+            >
+              {newerPost.title} →
+            </Link>
+          )}
+        </nav>
+      )}
     </article>
   );
 }
