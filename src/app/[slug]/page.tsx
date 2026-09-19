@@ -94,7 +94,7 @@ export default async function PostPage({
         </div>
       )}
       <Link
-        href="/"
+        href={`/#${post.slug}`}
         className="text-sm text-paper-muted hover:text-gold-soft transition-colors"
       >
         ← Все публикации

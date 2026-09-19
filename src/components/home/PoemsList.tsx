@@ -56,8 +56,9 @@ export default function PoemsList({ posts }: { posts: PostMeta[] }) {
           {posts.map((post) => (
             <motion.article
               key={post.slug}
+              id={post.slug}
               variants={item}
-              className="border-b border-line pb-10 flex flex-col sm:flex-row gap-5"
+              className="border-b border-line pb-10 flex flex-col sm:flex-row gap-5 scroll-mt-28"
             >
               {post.cover && (
                 <Link
