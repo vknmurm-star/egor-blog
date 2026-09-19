@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "i3fALs9aHod9F8c4zgYyngmoFUPqZb16ntqASledJSM",
+    yandex: "796f42959d88328c",
   },
   openGraph: {
     title: SITE_NAME,
