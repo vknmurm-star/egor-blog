@@ -1,8 +1,8 @@
 ---
 title: ВРЕМЯ ЛЮБВИ
-date: "2019-10-22"
+date: 2019-10-22
 excerpt: Любви все возрасты
-cover: /images/covers/img_0062.jpg
+cover: /images/covers/037_шикарный-жизненный-сюжет.jpg
 audio: /audio/капает-время.mp3
 ---
 Капает время, в пути неизбежно.
