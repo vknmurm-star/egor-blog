@@ -57,6 +57,8 @@ export default async function PaginatedPostsPage({
         posts={result.posts}
         currentPage={result.currentPage}
         totalPages={result.totalPages}
+        prevPageLastSlug={result.prevPageLastSlug}
+        nextPageFirstSlug={result.nextPageFirstSlug}
       />
     </div>
   );

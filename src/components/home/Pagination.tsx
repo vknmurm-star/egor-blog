@@ -7,13 +7,23 @@ function pageHref(page: number): string {
 export default function Pagination({
   currentPage,
   totalPages,
+  prevPageLastSlug,
+  nextPageFirstSlug,
 }: {
   currentPage: number;
   totalPages: number;
+  // Слаги граничных постов соседних страниц — без них "Назад"/"Далее"
+  // открывали бы страницу сверху, под шапкой, а не к месту, где читатель
+  // остановился (см. skill egorpoet-poetry-blog, раздел 11: scroll-mt-*
+  // уже стоит на самих постах, поэтому просто добавляем #slug к ссылке).
+  prevPageLastSlug?: string;
+  nextPageFirstSlug?: string;
 }) {
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const prevHref = `${pageHref(currentPage - 1)}${prevPageLastSlug ? `#${prevPageLastSlug}` : ""}`;
+  const nextHref = `${pageHref(currentPage + 1)}${nextPageFirstSlug ? `#${nextPageFirstSlug}` : ""}`;
 
   return (
     <nav
@@ -22,7 +32,7 @@ export default function Pagination({
     >
       {currentPage > 1 && (
         <Link
-          href={pageHref(currentPage - 1)}
+          href={prevHref}
           className="px-4 py-2 rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
         >
           ← Назад
@@ -46,7 +56,7 @@ export default function Pagination({
 
       {currentPage < totalPages && (
         <Link
-          href={pageHref(currentPage + 1)}
+          href={nextHref}
           className="px-4 py-2 rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
         >
           Далее →

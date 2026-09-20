@@ -81,6 +81,14 @@ export interface PostsPage {
   posts: PostMeta[];
   currentPage: number;
   totalPages: number;
+  // Слаги для якорных ссылок "Назад"/"Далее" в пагинации — граничные посты
+  // соседних страниц, а не первые попавшиеся: "Назад" должен приземлять на
+  // ПОСЛЕДНИЙ пост предыдущей страницы (он непосредственно предшествует
+  // текущей — переход ощущается как продолжение чтения назад), "Далее" —
+  // на ПЕРВЫЙ пост следующей (продолжение чтения вперёд). undefined на
+  // границах (страницы 1 или последней).
+  prevPageLastSlug?: string;
+  nextPageFirstSlug?: string;
 }
 
 /** Возвращает срез постов для страницы пагинации (1-indexed) или null,
@@ -95,6 +103,9 @@ export function getPostsPage(page: number): PostsPage | null {
     posts: allPosts.slice(start, start + POSTS_PER_PAGE),
     currentPage: page,
     totalPages,
+    prevPageLastSlug: page > 1 ? allPosts[start - 1]?.slug : undefined,
+    nextPageFirstSlug:
+      page < totalPages ? allPosts[start + POSTS_PER_PAGE]?.slug : undefined,
   };
 }
 

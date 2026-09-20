@@ -34,10 +34,14 @@ export default function PoemsList({
   posts,
   currentPage = 1,
   totalPages = 1,
+  prevPageLastSlug,
+  nextPageFirstSlug,
 }: {
   posts: PostMeta[];
   currentPage?: number;
   totalPages?: number;
+  prevPageLastSlug?: string;
+  nextPageFirstSlug?: string;
 }) {
   return (
     <section id="stihi" className="bg-bg-base py-24 px-6 sm:px-10">
@@ -113,7 +117,12 @@ export default function PoemsList({
           )}
         </motion.div>
 
-        <Pagination currentPage={currentPage} totalPages={totalPages} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          prevPageLastSlug={prevPageLastSlug}
+          nextPageFirstSlug={nextPageFirstSlug}
+        />
       </div>
     </section>
   );

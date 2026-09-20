@@ -23,7 +23,7 @@ const websiteJsonLd = {
 export default function Home() {
   // Первая страница ленты (getPostsPage(1) не бывает null — при пустом
   // content/posts вернёт totalPages: 1, posts: []).
-  const { posts, currentPage, totalPages } = getPostsPage(1)!;
+  const { posts, currentPage, totalPages, nextPageFirstSlug } = getPostsPage(1)!;
 
   return (
     <>
@@ -33,7 +33,12 @@ export default function Home() {
       />
       <Hero />
       <About />
-      <PoemsList posts={posts} currentPage={currentPage} totalPages={totalPages} />
+      <PoemsList
+        posts={posts}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        nextPageFirstSlug={nextPageFirstSlug}
+      />
       <Books />
       <QuoteBlock />
       <Events />
