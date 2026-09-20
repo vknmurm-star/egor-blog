@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteHeader from "@/components/SiteHeader";
+import HashScroll from "@/components/HashScroll";
 import Link from "next/link";
 import { Mail, Youtube } from "lucide-react";
 
@@ -92,6 +93,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-bg-base text-paper antialiased">
+        <HashScroll />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <footer className="border-t border-line bg-bg-deep">

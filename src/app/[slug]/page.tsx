@@ -101,6 +101,7 @@ export default async function PostPage({
       )}
       <Link
         href={allPublicationsHref}
+        scroll={false}
         className="text-sm text-paper-muted hover:text-gold-soft transition-colors"
       >
         ← Все публикации

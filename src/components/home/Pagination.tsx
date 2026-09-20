@@ -38,6 +38,7 @@ export default function Pagination({
       {currentPage > 1 && (
         <Link
           href={prevHref}
+          scroll={false}
           className="px-4 py-2 rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
         >
           ← Назад
@@ -56,6 +57,7 @@ export default function Pagination({
           <Link
             key={page}
             href={href}
+            scroll={false}
             aria-current={page === currentPage ? "page" : undefined}
             className={
               page === currentPage
@@ -71,6 +73,7 @@ export default function Pagination({
       {currentPage < totalPages && (
         <Link
           href={nextHref}
+          scroll={false}
           className="px-4 py-2 rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
         >
           Далее →
