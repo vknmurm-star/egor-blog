@@ -9,6 +9,7 @@ export default function Pagination({
   totalPages,
   prevPageLastSlug,
   nextPageFirstSlug,
+  pageFirstSlugs,
 }: {
   currentPage: number;
   totalPages: number;
@@ -18,6 +19,10 @@ export default function Pagination({
   // уже стоит на самих постах, поэтому просто добавляем #slug к ссылке).
   prevPageLastSlug?: string;
   nextPageFirstSlug?: string;
+  // Слаг первого поста для КАЖДОЙ страницы (индекс 0 = страница 1) — та же
+  // логика для номерных ссылок 1/2/3...: ведут на якорь, а не просто
+  // открывают страницу сверху.
+  pageFirstSlugs?: string[];
 }) {
   if (totalPages <= 1) return null;
 
@@ -39,20 +44,29 @@ export default function Pagination({
         </Link>
       )}
 
-      {pages.map((page) => (
-        <Link
-          key={page}
-          href={pageHref(page)}
-          aria-current={page === currentPage ? "page" : undefined}
-          className={
-            page === currentPage
-              ? "w-10 h-10 flex items-center justify-center rounded-full bg-gold text-bg-deep font-medium text-sm"
-              : "w-10 h-10 flex items-center justify-center rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
-          }
-        >
-          {page}
-        </Link>
-      ))}
+      {pages.map((page) => {
+        const firstSlug = pageFirstSlugs?.[page - 1];
+        // Активная кнопка — без якоря, ей некуда вести: страница и так уже
+        // открыта, лишний #slug только сдвинул бы скролл без навигации.
+        const href =
+          page === currentPage
+            ? pageHref(page)
+            : `${pageHref(page)}${firstSlug ? `#${firstSlug}` : ""}`;
+        return (
+          <Link
+            key={page}
+            href={href}
+            aria-current={page === currentPage ? "page" : undefined}
+            className={
+              page === currentPage
+                ? "w-10 h-10 flex items-center justify-center rounded-full bg-gold text-bg-deep font-medium text-sm"
+                : "w-10 h-10 flex items-center justify-center rounded-full border border-line text-sm text-paper-muted hover:text-gold-soft hover:border-gold/50 transition-colors"
+            }
+          >
+            {page}
+          </Link>
+        );
+      })}
 
       {currentPage < totalPages && (
         <Link

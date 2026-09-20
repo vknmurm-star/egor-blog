@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostsPage, getTotalPages } from "@/lib/posts";
+import { getPostsPage, getTotalPages, getPageFirstSlugs } from "@/lib/posts";
 import { buildMetadata } from "@/lib/seo";
 import PoemsList from "@/components/home/PoemsList";
 
@@ -59,6 +59,7 @@ export default async function PaginatedPostsPage({
         totalPages={result.totalPages}
         prevPageLastSlug={result.prevPageLastSlug}
         nextPageFirstSlug={result.nextPageFirstSlug}
+        pageFirstSlugs={getPageFirstSlugs()}
       />
     </div>
   );

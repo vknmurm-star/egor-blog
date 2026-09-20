@@ -109,6 +109,21 @@ export function getPostsPage(page: number): PostsPage | null {
   };
 }
 
+/** Слаг первого поста для каждой страницы пагинации (индекс 0 = страница 1)
+ * — нужен для номерных ссылок 1/2/3.../N в пагинации, чтобы они тоже вели
+ * на якорь конкретного поста, а не просто открывали страницу сверху (та
+ * же логика, что для "Назад"/"Далее"). */
+export function getPageFirstSlugs(): string[] {
+  const allPosts = getAllPosts();
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+  const slugs: string[] = [];
+  for (let page = 1; page <= totalPages; page++) {
+    const slug = allPosts[(page - 1) * POSTS_PER_PAGE]?.slug;
+    if (slug) slugs.push(slug);
+  }
+  return slugs;
+}
+
 /** На какой странице пагинации лежит пост с этим slug — нужно для ссылки
  * "Все публикации" со страницы поста (см. skill egorpoet-poetry-blog,
  * раздел 11): она должна вести на ту страницу ленты, где реально

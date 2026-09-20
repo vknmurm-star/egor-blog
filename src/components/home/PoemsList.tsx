@@ -36,12 +36,14 @@ export default function PoemsList({
   totalPages = 1,
   prevPageLastSlug,
   nextPageFirstSlug,
+  pageFirstSlugs,
 }: {
   posts: PostMeta[];
   currentPage?: number;
   totalPages?: number;
   prevPageLastSlug?: string;
   nextPageFirstSlug?: string;
+  pageFirstSlugs?: string[];
 }) {
   return (
     <section id="stihi" className="bg-bg-base py-24 px-6 sm:px-10">
@@ -122,6 +124,7 @@ export default function PoemsList({
           totalPages={totalPages}
           prevPageLastSlug={prevPageLastSlug}
           nextPageFirstSlug={nextPageFirstSlug}
+          pageFirstSlugs={pageFirstSlugs}
         />
       </div>
     </section>

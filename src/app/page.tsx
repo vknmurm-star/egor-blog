@@ -1,4 +1,4 @@
-import { getPostsPage } from "@/lib/posts";
+import { getPostsPage, getPageFirstSlugs } from "@/lib/posts";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
@@ -24,6 +24,7 @@ export default function Home() {
   // Первая страница ленты (getPostsPage(1) не бывает null — при пустом
   // content/posts вернёт totalPages: 1, posts: []).
   const { posts, currentPage, totalPages, nextPageFirstSlug } = getPostsPage(1)!;
+  const pageFirstSlugs = getPageFirstSlugs();
 
   return (
     <>
@@ -38,6 +39,7 @@ export default function Home() {
         currentPage={currentPage}
         totalPages={totalPages}
         nextPageFirstSlug={nextPageFirstSlug}
+        pageFirstSlugs={pageFirstSlugs}
       />
       <Books />
       <QuoteBlock />
