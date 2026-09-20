@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, getPostBySlug, POSTS_PER_PAGE } from "@/lib/posts";
 import { buildMetadata, SITE_URL } from "@/lib/seo";
 import CoverImage from "@/components/CoverImage";
 
@@ -61,6 +61,12 @@ export default async function PostPage({
   const olderPost = currentIndex >= 0 ? allPosts[currentIndex + 1] : undefined;
   const newerPost = currentIndex > 0 ? allPosts[currentIndex - 1] : undefined;
 
+  // На какой странице пагинации лежит этот пост в ленте — "Все публикации"
+  // должна вести именно туда, а не всегда на первую страницу (skill
+  // egorpoet-poetry-blog, раздел 11).
+  const feedPage = currentIndex >= 0 ? Math.floor(currentIndex / POSTS_PER_PAGE) + 1 : 1;
+  const allPublicationsHref = feedPage === 1 ? `/#${post.slug}` : `/page/${feedPage}#${post.slug}`;
+
   const creativeWorkJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -94,7 +100,7 @@ export default async function PostPage({
         </div>
       )}
       <Link
-        href={`/#${post.slug}`}
+        href={allPublicationsHref}
         className="text-sm text-paper-muted hover:text-gold-soft transition-colors"
       >
         ← Все публикации

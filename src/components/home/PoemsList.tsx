@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Music } from "lucide-react";
 import CoverImage from "@/components/CoverImage";
+import Pagination from "@/components/home/Pagination";
 import type { PostMeta } from "@/lib/posts";
 
 function formatDate(iso?: string) {
@@ -29,7 +30,15 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
-export default function PoemsList({ posts }: { posts: PostMeta[] }) {
+export default function PoemsList({
+  posts,
+  currentPage = 1,
+  totalPages = 1,
+}: {
+  posts: PostMeta[];
+  currentPage?: number;
+  totalPages?: number;
+}) {
   return (
     <section id="stihi" className="bg-bg-base py-24 px-6 sm:px-10">
       <div className="mx-auto max-w-3xl">
@@ -38,7 +47,7 @@ export default function PoemsList({ posts }: { posts: PostMeta[] }) {
             Стихи
           </p>
           <h2 className="font-heading text-4xl sm:text-5xl text-paper leading-tight">
-            Последние публикации
+            {currentPage > 1 ? `Стихи — страница ${currentPage}` : "Последние публикации"}
           </h2>
           <p className="mt-4 text-paper-muted leading-relaxed">
             Стихи и песни, написанные в свободное время. Иногда со звуком —
@@ -103,6 +112,8 @@ export default function PoemsList({ posts }: { posts: PostMeta[] }) {
             <p className="text-paper-muted">Пока здесь пусто — скоро появятся первые публикации.</p>
           )}
         </motion.div>
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
     </section>
   );

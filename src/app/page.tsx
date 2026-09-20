@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getPostsPage } from "@/lib/posts";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
@@ -21,7 +21,9 @@ const websiteJsonLd = {
 };
 
 export default function Home() {
-  const posts = getAllPosts();
+  // Первая страница ленты (getPostsPage(1) не бывает null — при пустом
+  // content/posts вернёт totalPages: 1, posts: []).
+  const { posts, currentPage, totalPages } = getPostsPage(1)!;
 
   return (
     <>
@@ -31,7 +33,7 @@ export default function Home() {
       />
       <Hero />
       <About />
-      <PoemsList posts={posts} />
+      <PoemsList posts={posts} currentPage={currentPage} totalPages={totalPages} />
       <Books />
       <QuoteBlock />
       <Events />

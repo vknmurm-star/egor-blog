@@ -71,6 +71,44 @@ export function getAllPosts(): PostMeta[] {
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+export const POSTS_PER_PAGE = 10;
+
+export function getTotalPages(): number {
+  return Math.max(1, Math.ceil(getAllPosts().length / POSTS_PER_PAGE));
+}
+
+export interface PostsPage {
+  posts: PostMeta[];
+  currentPage: number;
+  totalPages: number;
+}
+
+/** Возвращает срез постов для страницы пагинации (1-indexed) или null,
+ * если номер страницы вне диапазона — вызывающий код решает, что делать
+ * (notFound()/redirect на главную и т.п.). */
+export function getPostsPage(page: number): PostsPage | null {
+  const allPosts = getAllPosts();
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+  if (!Number.isInteger(page) || page < 1 || page > totalPages) return null;
+  const start = (page - 1) * POSTS_PER_PAGE;
+  return {
+    posts: allPosts.slice(start, start + POSTS_PER_PAGE),
+    currentPage: page,
+    totalPages,
+  };
+}
+
+/** На какой странице пагинации лежит пост с этим slug — нужно для ссылки
+ * "Все публикации" со страницы поста (см. skill egorpoet-poetry-blog,
+ * раздел 11): она должна вести на ту страницу ленты, где реально
+ * находится пост, а не всегда на первую. */
+export function getPostPageNumber(slug: string): number {
+  const allPosts = getAllPosts();
+  const index = allPosts.findIndex((p) => p.slug === slug);
+  if (index === -1) return 1;
+  return Math.floor(index / POSTS_PER_PAGE) + 1;
+}
+
 export function getPostBySlug(slug: string): Post | null {
   const filePath = path.join(POSTS_DIR, `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
