@@ -11,7 +11,14 @@ export default function About() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative min-h-[420px] md:min-h-[560px]"
+          // На мобильных grid схлопывается в одну колонку — этот блок,
+          // чисто декоративное фото почти без текста, оказывается ПЕРВЫМ
+          // перед бионаписанием и списком стихов. При 420px он один
+          // занимал больше половины экрана, из-за чего "Последние
+          // публикации" уезжали на 2+ экрана вниз ещё до какого-либо
+          // читаемого контента. На md+ раскладка двухколоночная (фото
+          // рядом с текстом) — там min-h нужен побольше, не трогаем.
+          className="relative min-h-[220px] md:min-h-[560px]"
         >
           <div
             className="about-photo absolute inset-0 bg-cover bg-[position:center_28%] grayscale"
