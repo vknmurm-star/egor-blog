@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -112,21 +113,31 @@ export default function Hero() {
         </div>
       </div>
 
-      <motion.div
+      {/* Подсказка "листайте вниз" — только для мобильных (md:hidden).
+          На десктопе подсказка не нужна: там весь Hero виден целиком с
+          первого взгляда вместе с намёком "Читать стихи →" выше, а вот на
+          мобильных, где Hero растянут на весь экран (min-h-screen) и
+          основной контент подан крупным блоком сверху, лёгкий намёк на
+          скролл снижает риск того, что посетитель решит, будто ниже
+          ничего нет. Иконка вместо текстовой подписи — минимальный,
+          ненавязчивый штрих, не текстовый блок, конкурирующий с
+          заголовком/кнопкой. */}
+      <motion.a
+        href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.8 }}
-        className="relative pb-10 flex flex-col items-center gap-2 text-fixed-light/75 text-xs tracking-[0.2em] uppercase"
-        style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
+        className="md:hidden relative pb-8 flex justify-center text-fixed-gold"
+        aria-label="Пролистать к содержанию"
       >
-        Листайте вниз
         <motion.span
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ filter: "drop-shadow(0 1px 6px rgba(0,0,0,0.8))" }}
         >
-          ↓
+          <ChevronDown className="w-7 h-7" strokeWidth={2} />
         </motion.span>
-      </motion.div>
+      </motion.a>
     </section>
   );
 }
