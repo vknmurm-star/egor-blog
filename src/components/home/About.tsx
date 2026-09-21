@@ -5,7 +5,14 @@ import { motion } from "framer-motion";
 export default function About() {
   return (
     <section id="about" className="relative bg-bg-raised texture-paper">
-      <div className="mx-auto max-w-6xl grid md:grid-cols-2">
+      {/* pt-8 на мобильных — у секции/grid не было отступа сверху вообще,
+          фото и раньше упиралось прямо в верхний край (это не новый баг),
+          но при min-h-[420px] блок уходил за экран, и стык с Hero не
+          так бросался в глаза. После сокращения до 220px (см. выше) обе
+          границы фото стали видны в одном экране, и отсутствие воздуха
+          сверху стало заметно — добавляем небольшой отступ, десктопную
+          двухколоночную раскладку (md:pt-0) не трогаем. */}
+      <div className="mx-auto max-w-6xl grid md:grid-cols-2 pt-8 md:pt-0">
         <motion.div
           initial={{ opacity: 0, x: -24 }}
           whileInView={{ opacity: 1, x: 0 }}
