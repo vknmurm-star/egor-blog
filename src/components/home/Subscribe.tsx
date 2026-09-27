@@ -88,11 +88,21 @@ export default function Subscribe() {
             <span>
               Я согласен на{" "}
               <Link
-                href="/privacy"
+                href="/consent"
                 className="text-gold-soft underline underline-offset-4 hover:text-gold"
               >
                 обработку персональных данных
               </Link>
+              .
+              <br />
+              Политика обработки персональных данных доступна по{" "}
+              <Link
+                href="/privacy"
+                className="text-gold-soft underline underline-offset-4 hover:text-gold"
+              >
+                ссылке
+              </Link>
+              .
             </span>
           </label>
         </form>

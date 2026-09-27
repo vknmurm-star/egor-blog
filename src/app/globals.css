@@ -53,7 +53,7 @@
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-heading: var(--font-cormorant), Georgia, serif;
   --font-poem: var(--font-cormorant), Georgia, serif;
-  --font-signature: var(--font-signature), cursive;
+  --font-signature: var(--font-cormorant), cursive;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 

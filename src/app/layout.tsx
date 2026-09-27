@@ -1,10 +1,42 @@
 import type { Metadata } from "next";
+import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteHeader from "@/components/SiteHeader";
 import HashScroll from "@/components/HashScroll";
 import Link from "next/link";
 import { Mail, Youtube } from "lucide-react";
+
+// Самохостинг шрифтов через next/font — файлы скачиваются один раз на
+// этапе сборки и раздаются со своего домена, без запросов браузера к
+// fonts.googleapis.com/fonts.gstatic.com. Устраняет трансграничную
+// передачу IP посетителя в Google (см. /privacy) — тот же фикс, что
+// сделан на andreev-zakon.ru. Имена переменных совпадают с прежними
+// литеральными --font-playfair/--font-cormorant/--font-inter, поэтому
+// globals.css почти не пришлось трогать (--font-signature просто
+// сослан на --font-cormorant вместо самого себя).
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -56,37 +88,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className="h-full">
+    <html
+      lang="ru"
+      className={`h-full ${playfairDisplay.variable} ${cormorantGaramond.variable} ${inter.variable}`}
+    >
       <head>
         {/* Anti-FOUC: применяем сохранённую тему синхронно, до отрисовки,
             иначе при светлой теме будет заметная вспышка тёмной на долю
-            секунды перед гидратацией ThemeToggle. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}`,
-          }}
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-        <style>{`
-          :root {
-            --font-playfair: 'Playfair Display', Georgia, serif;
-            --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-            /* Кириллическая "подпись": курсив Cormorant Garamond — у
-               рукописных Google Fonts (Mrs Saint Delafield и т.п.) нет
-               кириллических глифов, для русского текста они не подходят. */
-            --font-signature: 'Cormorant Garamond', Georgia, serif;
-            --font-inter: 'Inter', system-ui, sans-serif;
-          }
-        `}</style>
+            секунды перед гидратацией ThemeToggle. Вынесен в статический
+            файл (а не dangerouslySetInnerHTML инлайном), чтобы CSP мог
+            разрешать script-src 'self' без 'unsafe-inline' — со внешним
+            файлом это не нужно, а с инлайн-скриптом браузер бы его
+            заблокировал. */}
+        <script src="/theme-init.js" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
